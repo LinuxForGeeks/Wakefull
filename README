@@ -1,4 +1,13 @@
 
+This is a fork of: https://sourceforge.net/projects/wakefull/
+
+Modifications:	+ Change icons.
+				+ Customize scripts for XFCE Desktop.
+				+ Add install_instructions file.
+
+
+----------------------------------------------------------------------
+
 Project: Wakefull
 Description: A simple/python version of caffeine, the screensaver blocker.
 

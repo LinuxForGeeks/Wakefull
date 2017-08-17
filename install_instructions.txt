@@ -1,0 +1,9 @@
+
+# navigate to wakefull folder with terminal
+cd /home/dev/Téléchargements/lgc/wakefull/wakefull_xfce_customised/
+
+# make install.sh executable
+# install as root
+sudo ./install.sh
+
+# you will need to change permissions on wakefull installed files if not work

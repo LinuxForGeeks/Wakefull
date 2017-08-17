@@ -77,12 +77,23 @@ mkdir -p /usr/share/icons/user
 
 cp ./wakefull.py /usr/local/bin/wakefull.py
 
+chmod 755 /usr/local/bin/wakefull.py
+
 cp ./wakefull_icon_* /usr/share/icons/user/.
+
+chmod 755 /usr/share/icons/user/wakefull_icon_*
+
 cp ./wakefull*.sh /usr/local/bin/.
+
+chmod 755 /usr/local/bin/wakefull*.sh
 
 cp ./wakefull_auto.desktop /etc/xdg/autostart/wakefull.desktop
 
+chmod 755 /etc/xdg/autostart/wakefull.desktop
+
 cp ./wakefull_app.desktop /usr/share/applications/wakefull.desktop
+
+chmod 755 /usr/share/applications/wakefull.desktop
 
 # ----
 

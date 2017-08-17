@@ -179,12 +179,12 @@ def wakefull_onClick(widget):
 
 ######################################################################
 
-def wakefull_loop():
-    if wakefull_active:
-        wakefull_say("wakeup")
-        status, output = my_exec(wakefull_config['active'], False)
-
-    return True
+#def wakefull_loop():
+#    if wakefull_active:
+#        wakefull_say("wakeup")
+#        status, output = my_exec(wakefull_config['active'], False)
+#
+#    return True
 
 
 ######################################################################
@@ -285,7 +285,7 @@ tray.set_visible(True)
 # http://www.pygtk.org:
 # The first call to the function will be at the end of the first interval.
 
-my_glib.timeout_add_seconds(wakefull_config['active_interval_s'], wakefull_loop)
+#my_glib.timeout_add_seconds(wakefull_config['active_interval_s'], wakefull_loop)
 
 my_gtk.main()
 
