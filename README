@@ -1,0 +1,267 @@
+
+Project: Wakefull
+Description: A simple/python version of caffeine, the screensaver blocker.
+
+Author: John Walsh
+Maintainer: John Walsh
+
+Copyright (C) 2015, John Walsh, all rights reserved.
+Created: Sep 23 2015
+
+https://sourceforge.net/projects/wakefull/
+
+
+'wakeful'
+
+unable to sleep; not sleeping; indisposed to sleep.
+characterized by absence of sleep.
+watchful; alert; vigilant.
+
+
+----------------------------------------------------------------------
+
+Technical Info:
+
+the main script is written in python, for version 2 and 3
+
+python 3 - requires: gtk3
+
+python 2 - requires: pygtk2
+
+
+the support scripts are written in bash
+
+[requires] xdotool
+
+
+----------------------------------------------------------------------
+
+Help Needed:
+
+See 'The Scripts' - help needed for those.
+
+How to properly install icons in /usr/share/icons ?
+
+
+----------------------------------------------------------------------
+
+Change log:
+
+Version: 1.3.0 - 01/03/16
+
+added check to stop multiple instances running
+
+----
+
+Version: 1.2.0 - 30/12/15
+
+combined python versions 2 and 3 into a single script
+
+----
+
+Version: 1.1.0 - 21/11/15
+
+altered for python versions 2 and 3
+better install script
+active script:
+  more general (xdotool) by default
+  added: gnome-screensaver, gnome-power-manager
+made scripts executable
+
+----
+
+Version: 1.0.0 - 25/09/15
+
+first release, supports:
+
+xscreensaver
+xfce4-power-manager
+
+
+----------------------------------------------------------------------
+
+Description:
+
+Wakefull is a simple/python version of caffeine, the screensaver blocker.
+
+See original:
+http://www.zhornsoftware.co.uk/caffeine/
+
+Wakefull will put a coffee cup icon in the notification area,
+and you can turn it on/off with a mouse-click.
+
+The icon changes to a full/brown cup when it is on (activated).
+
+Wakefull is intended for OS/desktop environments (like CentOS/Xfce)
+that don't have a version of caffeine easilly available.
+
+
+----------------------------------------------------------------------
+
+Installing:
+
+Download all the project files into your own 'wakefull' directory.
+Unzip if necessary.
+
+From there, as root, run install.sh.
+
+You may have to logout/in, and/or run Alacarte to get 'wakeful' to
+appear in the start menus.
+
+NOTE: de-select it as a startup application if you don't use it very
+often and you don't want it in the notification area all the time.
+
+
+=> to stop it running, as user:
+
+$ pkill wakefull
+
+
+=> to remove from system, as root:
+
+# rm /etc/xdg/autostart/wakefull.desktop
+# rm /usr/share/applications/wakefull.desktop
+# rm /usr/share/icons/user/wakefull_icon_*
+# rm /usr/local/bin/wakefull*
+
+
+NOTE: if a user wants to have their own 'scripts', they can create
+them in their own ~/.config/wakefull directory, and wakefull.py
+will detect and use them.
+
+as user:
+
+$ mkdir ~/.config/wakefull
+$ cp ./wakefull*.sh ~/.config/wakefull/.
+
+
+----------------------------------------------------------------------
+
+The Scripts:
+
+wakefull.py is just the system tray icon and functional control (turn
+it on and off). The actual work of blocking the screen/power saver is
+done by the scripts:
+
+wakefull_start.sh
+wakefull_active.sh
+wakefull_stop.sh
+
+
+The main script is: wakefull_active.sh
+
+The default method is to use 'xdotool' (if installed) to simulate
+a key press.
+
+Otherwise :-
+
+In there, place any code that needs to be exectued to block your
+screen/power saver.
+
+The code should be entered such that it tests for the presence of
+your screen/power saver, and only executes if present.
+
+eg. TEST && RESET_CODE
+
+
+In this way, all code for all processes can remain in the script.
+
+NOTE: if you add code to handle a new screen/power saver, please do
+send it back to me and I will include it in the project.
+
+
+NOTE: gnome-screensaver, gnome-power-manager - not the most reliable?
+
+
+----------------------------------------------------------------------
+
+Development History:
+
+Version: 1.3.0 - 01/03/16
+
+added check to stop multiple instances running
+
+----
+
+Version: 1.2.0
+
+combined python versions 2 and 3 into a single script
+
+----
+
+Version: 1.1.0
+
+In trying to get the 'active' script to work over various distro's and
+python 2 and 3, went back to using xdotool as the default general case.
+
+Ported the python 3 changes back into the pyhon 2 version as appropriate
+to keep the code as similar as possible.
+
+Improved the install script.
+
+----
+
+Version: 1.0.0
+
+When first using 'xdotool' to simulate key presses to keep the screen
+alive, I could not get it to be reliable.
+
+I found that if there was any window foacus active (term, gedit),
+then the keypress went into it (annoying) and did NOT count against
+the screen saver timer.
+
+If there was no window focus active (ie. focus on the background/
+Desktop), then the keypress did count against the screen saver timer.
+
+BUT - neither stopped the powersave modes, standby...
+
+I found that 'F20' key was the least intrusive keypress to use,
+if it might go into an active window.
+
+However, by switching the window focus to the 'Desktop', then a
+regular key can be used (eg. a) and there was no effect on the
+current window, other than the flicker of the title bar as it lost
+and re-gained the focus.
+
+This whole process also seamed to cause problems when running as root.
+
+The code was:
+
+# get window ID of background
+status, output = commands.getstatusoutput('xdotool search --name "^Desktop$"')
+window_id_str1 = output
+window_id = int(output)
+window_id_str2 = str(window_id)
+
+# verify it is legit
+if window_id_str1 != window_id_str2:
+    print "ERROR: 'Desktop' window ID not clear ???"
+    exit(1)
+
+# command to exec when active
+keypress = "xdotool getwindowfocus windowfocus %s key a windowfocus" % window_id_str2,
+
+----
+
+Given the problems with xdotool, I found other ways to block both the
+screen saver and the power saver.
+
+However, they were particular to the apps performing those tasks.
+
+So they were kept outside of the main program by having it execute
+external scripts.
+
+This way, the scripts are easilly editable by a user.
+
+----
+
+Icons, courtessy of:
+
+https://openclipart.org/share
+
+Coffee Cups
+https://openclipart.org/user-cliparts/pitr
+http://colouringbook.org/?s=coffee+cup+icon+pitr
+
+
+----------------------------------------------------------------------

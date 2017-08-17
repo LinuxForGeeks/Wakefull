@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wakefull
+Comment=sreensaver blocker
+Exec=/usr/local/bin/wakefull.py --on
+Icon=/usr/share/icons/user/wakefull_icon_brown.svg
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;Security;X-XFCE;
+X-Desktop-File-Install-Version=0.21
+ZZZOnlyShowIn=GNOME;XFCE;

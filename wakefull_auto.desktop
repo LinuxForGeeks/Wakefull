@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Wakefull
+Comment=sreensaver blocker
+Exec=/usr/local/bin/wakefull.py
+Icon=preferences-desktop-screensaver.svg
+Terminal=false
+Type=Application
+NoDisplay=true
+X-GNOME-UsesNotifications=true
